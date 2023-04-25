@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "covid-report-adf9940"
+		},
+		"dllinkedservice_adfcov_accountKey": {
+			"value": ""
+		},
+		"ls_adls_formula9940_accountKey": {
+			"value": ""
+		},
+		"ls_blob_adfcov_connectionString": {
+			"value": ""
+		},
+		"dllinkedservice_adfcov_properties_typeProperties_url": {
+			"value": "https://formula1dl9940.dfs.core.windows.net/"
+		},
+		"ls_adls_formula9940_properties_typeProperties_url": {
+			"value": "https://formula1dl9940.dfs.core.windows.net/"
+		},
+		"ls_via_HttpServer_properties_typeProperties_url": {
+			"value": "https://github.com"
+		}
+	}
+}

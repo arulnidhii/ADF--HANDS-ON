@@ -1,0 +1,84 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "covid-report-adf9940"
+		},
+		"dllinkedservice_adfcov_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'dllinkedservice_adfcov'"
+		},
+		"ls_adls_formula9940_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_adls_formula9940'"
+		},
+		"ls_blob_adfcov_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_blob_adfcov'"
+		},
+		"dllinkedservice_adfcov_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://formula1dl9940.dfs.core.windows.net/"
+		},
+		"ls_adls_formula9940_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://formula1dl9940.dfs.core.windows.net/"
+		},
+		"ls_via_HttpServer_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://github.com"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "covid-report-adf9940_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"dllinkedservice_adfcov_accountKey": {
+						"value": "[parameters('dllinkedservice_adfcov_accountKey')]"
+					},
+					"ls_adls_formula9940_accountKey": {
+						"value": "[parameters('ls_adls_formula9940_accountKey')]"
+					},
+					"ls_blob_adfcov_connectionString": {
+						"value": "[parameters('ls_blob_adfcov_connectionString')]"
+					},
+					"dllinkedservice_adfcov_properties_typeProperties_url": {
+						"value": "[parameters('dllinkedservice_adfcov_properties_typeProperties_url')]"
+					},
+					"ls_adls_formula9940_properties_typeProperties_url": {
+						"value": "[parameters('ls_adls_formula9940_properties_typeProperties_url')]"
+					},
+					"ls_via_HttpServer_properties_typeProperties_url": {
+						"value": "[parameters('ls_via_HttpServer_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
