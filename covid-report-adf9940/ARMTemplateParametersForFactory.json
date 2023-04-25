@@ -14,6 +14,9 @@
 		"ls_blob_adfcov_connectionString": {
 			"value": ""
 		},
+		"Ls_HTTP_git_cloudbox_properties_typeProperties_url": {
+			"value": "https://github.com"
+		},
 		"dllinkedservice_adfcov_properties_typeProperties_url": {
 			"value": "https://formula1dl9940.dfs.core.windows.net/"
 		},
