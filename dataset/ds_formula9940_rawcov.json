@@ -1,0 +1,23 @@
+{
+	"name": "ds_formula9940_rawcov",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls_formula9940",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "population_by_age",
+				"fileSystem": "rawcov"
+			},
+			"columnDelimiter": "\t",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
