@@ -19,9 +19,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_blob_adfcov'"
 		},
+		"LS_http_fixed_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{linkedService().sourceBaseURL}"
+		},
 		"Ls_HTTP_git_cloudbox_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://github.com"
+			"defaultValue": "@{linkedService().sourceBaseURL}"
 		},
 		"dllinkedservice_adfcov_properties_typeProperties_url": {
 			"type": "string",
@@ -41,10 +45,35 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/LS_http_fixed')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"sourceBaseURL": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('LS_http_fixed_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Ls_HTTP_git_cloudbox')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"parameters": {
+					"sourceBaseURL": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "HttpServer",
 				"typeProperties": {
@@ -124,10 +153,19 @@
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "Ls_HTTP_git_cloudbox",
-					"type": "LinkedServiceReference"
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sourceBaseURL": {
+							"value": "@dataset().baseURL",
+							"type": "Expression"
+						}
+					}
 				},
 				"parameters": {
 					"relativeURL": {
+						"type": "string"
+					},
+					"baseURL": {
 						"type": "string"
 					}
 				},
@@ -150,6 +188,40 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/Ls_HTTP_git_cloudbox')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_ecdc_file_list')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_blob_adfcov",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "ecdc_file_list_for_2_files.json",
+						"container": "configs"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"sourceRelativeURL": {
+							"type": "string"
+						},
+						"sinkFileName": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_blob_adfcov')]"
 			]
 		},
 		{
@@ -305,6 +377,10 @@
 									"relativeURL": {
 										"value": "@variables('sourceRelativeURL')",
 										"type": "Expression"
+									},
+									"baseURL": {
+										"value": "@pipeline().parameters.sourcebaseURL",
+										"type": "Expression"
 									}
 								}
 							}
@@ -326,6 +402,11 @@
 				"policy": {
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
+				},
+				"parameters": {
+					"sourcebaseURL": {
+						"type": "string"
+					}
 				},
 				"variables": {
 					"sourceRelativeURL": {

@@ -14,8 +14,11 @@
 		"ls_blob_adfcov_connectionString": {
 			"value": ""
 		},
+		"LS_http_fixed_properties_typeProperties_url": {
+			"value": "@{linkedService().sourceBaseURL}"
+		},
 		"Ls_HTTP_git_cloudbox_properties_typeProperties_url": {
-			"value": "https://github.com"
+			"value": "@{linkedService().sourceBaseURL}"
 		},
 		"dllinkedservice_adfcov_properties_typeProperties_url": {
 			"value": "https://formula1dl9940.dfs.core.windows.net/"

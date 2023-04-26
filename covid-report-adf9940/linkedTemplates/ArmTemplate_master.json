@@ -19,9 +19,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_blob_adfcov'"
 		},
+		"LS_http_fixed_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{linkedService().sourceBaseURL}"
+		},
 		"Ls_HTTP_git_cloudbox_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://github.com"
+			"defaultValue": "@{linkedService().sourceBaseURL}"
 		},
 		"dllinkedservice_adfcov_properties_typeProperties_url": {
 			"type": "string",
@@ -70,6 +74,9 @@
 					},
 					"ls_blob_adfcov_connectionString": {
 						"value": "[parameters('ls_blob_adfcov_connectionString')]"
+					},
+					"LS_http_fixed_properties_typeProperties_url": {
+						"value": "[parameters('LS_http_fixed_properties_typeProperties_url')]"
 					},
 					"Ls_HTTP_git_cloudbox_properties_typeProperties_url": {
 						"value": "[parameters('Ls_HTTP_git_cloudbox_properties_typeProperties_url')]"
