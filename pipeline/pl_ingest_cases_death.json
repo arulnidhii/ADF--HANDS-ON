@@ -54,6 +54,10 @@
 							"relativeURL": {
 								"value": "@variables('sourceRelativeURL')",
 								"type": "Expression"
+							},
+							"baseURL": {
+								"value": "@pipeline().parameters.sourcebaseURL",
+								"type": "Expression"
 							}
 						}
 					}
@@ -72,6 +76,11 @@
 				]
 			}
 		],
+		"parameters": {
+			"sourcebaseURL": {
+				"type": "string"
+			}
+		},
 		"variables": {
 			"sourceRelativeURL": {
 				"type": "String",
